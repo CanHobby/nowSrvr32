@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>theAPT</title>
+  <link rel="icon" type="image/x-icon" href="http://192.168.0.30/favicon.ico">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://192.168.0.50/style.css?r="+random()>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="http://192.168.0.50/Boxes.js?r="+random()"></script>
+<!-- script src="Boxes.js"></script -->
+ <!---script> var Boxes = [ ["Table",0], ["Sofa",0], ["Bedde",5], ["Coffee",0] ]; -->
+<script>
+	var myJSON;
+	var ADR;
+	var MSG = "MSG";
+	var fCTR = 69;
+</script>	
+</head>
+ <body > <!-- /body>onload="loaded()" -->
+	 <h2>theAPT <span id="unL">unk</span></h2>
+<div class="center"> 
+   <div><span id="TempState" class="H"></span><span class="H0"> &deg;C</span><br><br>
+   Hi &nbsp;<span id="HiState" class="H3">Hi</span> &nbsp; &nbsp; Lo &nbsp;<span id="LoState" class="H3">Lo</span></div>
+	  
+  <div id="IconState"><img id="IconImg" src="http://openweathermap.org/img/wn/02d@4x.png" width="100%"></div>
+  
+  <div><span id="WindState" class="H"></span><span class="H0"> km/h</span><br><br>
+  (&nbsp; <span id="ChillState" class="H3"></span>&nbsp; )</div>
+</div>  
+
+ <script>
+
+var focused = 69;
+window.onfocus = function() {
+    focused+=2;
+    $("#unL").text( focused );
+    console.log( "foused = " + focused );
+};
+window.onblur = function() {
+    focused--;
+    $("#unL").text( focused );
+};	 
+ 
+  console.log( "Boxes Len = " + Boxes.length );
+ for( q = 0; q < Boxes.length; q++ ) {
+/****	 
+	if( Boxes[q][1][0][0] == 'T' ) {
+		 console.log("Found T");
+		 document.write("\
+		 <div>\
+		 <h4>"+Boxes[q][0]+"</h4>\
+         <span class='H' id='"+Boxes[q][0]+"State'></span><span class='H0'> &deg;C</span>\
+         </div>");
+		}
+else
+*****/
+//		 <span id="+Boxes[q][0]+"State" class="H0"'></span> &deg;C\
+		
+	 
+  document.write("\
+  <div>\
+  <h4>"+Boxes[q][0]+" <span id='"+Boxes[q][0]+"State'></span></h4>\
+  	<label class='switch'>\
+	<input type='checkbox' onchange='DoBox(this, "+q+")' id='"+Boxes[q][0]+"'>\
+	<span class='slider'></span>\
+	</label>\
+  </div>");
+		}
+				
+</script>
+
+<BR><BR>
+
+<script>
+	
+function DoBox( element, qnum ) {
+	for( x=1; x<Boxes[qnum].length; x++ ) {
+
+if( Boxes[qnum][x][0] < 0x100 ) {
+	 ADR = Boxes[qnum][x][0];
+	 if( (Boxes[qnum][x][1] === 0 ) && ( element.checked ) ) {
+		 if( ADR < 0 ) { MSG = "F2"; console.log("Reverse Polarity"); } else { MSG = "N2"; }  }
+	 if( (Boxes[qnum][x][1] === 0 ) && (!element.checked ) ) {
+		 if( ADR < 0 ) { MSG = "N2"; console.log("Reverse Polarity"); } else { MSG = "F2"; } }  
+	 if( Boxes[qnum][x][1]  !== 0 )    { MSG = Boxes[qnum][x][1]; }  //  Boxes[qnum][x][1]; }
+	 ADR = Math.abs( Boxes[qnum][x][0] );
+//	  console.log("Normal ADR = "+ADR);	 
+ console.log("MSG = "+MSG);	
+	  }
+	  
+if( Boxes[qnum][x][0] > 0xFF  ) {
+	 ADR = (Boxes[qnum][x][0]&0xFF00)>>8; console.log("Funky ADR = "+ADR);
+	 MSG = "MSG";
+	 if( (Boxes[qnum][x][1] === 0 ) && ( element.checked ) ) {
+		  MSG = "N"+(Boxes[qnum][x][0]&0xF).toString(16);
+		   }
+	 if( (Boxes[qnum][x][1] === 0 ) && (!element.checked ) ) {
+		  MSG = "F" + (Boxes[qnum][x][0]&0xF).toString(16); }
+	  }
+	  
+console.log("Got here 142 : ADR = "+ADR);
+	
+	 if( isNaN( Boxes[qnum][x][0] ) ) { console.log( Boxes[qnum][x][0] + " isNaN" );
+	   MSG = "OFF";
+	   if( (Boxes[qnum][x][1] === 0 ) && ( element.checked ) ) { MSG = "ON"; }
+		 ADR = Boxes[qnum][x][0];
+		  }
+
+if( Boxes[qnum][x][2] > 0 ) { console.log("Toggle Check ");
+//	if( element.checked ) { element.checked = false; } 
+					}
+					
+$.get( "/IC?NOW="+ADR+"&MSG="+MSG+"&TO="+Boxes[qnum][x][2]+"&ID="+MSG+element.id );  }
+
+		}
+
+setInterval(function ( ) {
+		
+     	$.get("/getStatus.htm", function( data ) {
+	   	console.log( "Data: "+data );
+		myJSON = JSON.parse( data );
+		
+for (const key in myJSON ) {
+//  console.log(`${key} -> ${ myJSON[key][0] }`);
+  if( myJSON[key][0] == 'N' ) {
+	   console.log("N 'tis " + myJSON[key].substr(2) );
+	   $("#"+myJSON[key].substr(2)).prop( "checked", true );
+	    }
+  if( myJSON[key][0] == 'F' ) {
+	   console.log("F 'tis " + myJSON[key].substr(2) );
+	   $("#"+myJSON[key].substr(2)).prop( "checked", false );
+	    }
+	    
+  if( myJSON[key] == "OFF" ) {
+	   console.log("OFF 'tis " + key );  //  myJSON[key].substr(2) );
+	   $("#"+key ).prop( "checked", false );
+	    }
+	    
+  if( myJSON[key] == "ON" ) {
+	   console.log("ON 'tis " + key );  //  myJSON[key].substr(2) );
+	   $("#"+key ).prop( "checked", true );
+	    }
+	        
+   };  // End for key value
+   
+//	   }
+
+			$("#BState").text( myJSON.BedSide );
+			$("#CState").text( myJSON.Coffee );
+			$("#TempState").text( myJSON.Temp );
+			$("#HiState").text( myJSON.Temp_max );
+			$("#LoState").text( myJSON.Temp_min );
+			$("#ChillState").text( myJSON.Chill );
+			$("#WindState").text(  myJSON.Wind );
+//			$("#IconImg").src = "http://openweathermap.org/img/wn/10d@4x.png" ;
+ChgImg( myJSON.Icon );
+/***
+ }
+****/
+			if( myJSON.Table === "1" ) { $("#TState").text("ON"); $("#TableBox").prop( "checked", true ); }
+			if( myJSON.Table === "5" ) { $("#TState").text("OFF"); $("#TableBox").prop( "checked", false ); }
+			else { $("#TState").text("ON"); $("#TableBox").prop( "checked", true ); }
+
+			if( myJSON.Sofa === "ON" ) { $("#SofaBox").prop( "checked", true ); }
+			else { $("#SofaBox").prop( "checked", false ); }
+			if( myJSON.BedSide === "ON" ) { $("#BedSideBox").prop( "checked", true ); }
+//			else { $("#BedSideBox").prop( "checked", false ); }			
+				
+				});
+ }, 18000 );
+
+/***/
+
+function ChgImg( i ) {
+var b = document.getElementById("IconImg");
+b.src = "http://openweathermap.org/img/wn/"+i+"@4x.png";
+}
+</script>
+</body>
+</html>

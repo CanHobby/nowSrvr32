@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ArduinoShop infoTT config</title>
+    <style>
+      body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Color: #000066; text-align: center; }
+	  td { padding-left:16px; padding-bottom:14px; }
+	  button { padding:6px; border-radius:4px; border-color:lime; padding-left:16px; padding-right:16px; }
+    </style>
+  </head>
+  <body><center><h1>ArduinoShop infoCentre config<br></h1>
+<script>
+  	const url = new URL( location );
+  	var EN;
+	var cols = url.searchParams.get('cols');	
+	var rows = url.searchParams.get('rows');	
+	if( !cols ) { cols = "%conf_cols%";
+ document.write("cols = "+cols+"<br>\
+  <table><tr>\
+ <form>\
+  <BR>\
+  <td><input type='radio' id='uO' name='DT'> micro OLED </td>\
+  <td><input type='radio' id='mO' name='uc'> mini OLED </td>\
+  <td><input type='radio' id='1602' name='DT' onClick=> LCD1602</td>\
+  <td><input type='radio' id='2004' name='DT'> LCD2004</td>\
+  <td><input type='radio' id='12864' name='uc'> LCD12864 </td>\
+ </tr></table>\
+ </form>\
+<button onClick='submitForm()'> Submit </button><br>");
+
+if( cols == 20 ) { document.getElementById("2004").checked = true; }
+if( cols == 16 ) { document.getElementById("1602").checked = true; }
+
+ document.getElementById("uO").disabled = true;
+ document.getElementById("mO").disabled = true;
+ document.getElementById("12864").disabled = true; 
+} else {
+	 document.write( "<h1>LCD"+cols+"0"+rows+" Display:</h1><br>");
+	 
+	 if( rows == 4 ) {
+		 document.write("<table><tr><form>\
+		 <tr><td><input type='radio' id='TX' name='EN'></td><td>LARGE Time Display</td></tr>\
+		<tr><td><input type='radio' id='WX' name='EN'></td><td>LARGE Weather Display</td></tr>\
+		<tr><td><input type='radio' id='PX' name='EN'></td><td>LARGE Stocks Display<BR></td></tr>\
+	<tr><td><input type='radio' id='WmTm' name='EN'></td><td>small Weather Display<BR>small Time Display<BR></td></tr>\
+	<tr><td><input type='radio' id='WmPm' name='EN'></td><td>small Weather Display<BR>small Stocks Display<BR></td></tr>\
+		</table></form><button onClick='submitDForm()'> Submit </button><br>");
+					}
+	 		}
+		
+ function submitForm() {
+	 if( document.querySelector('input[name = "DT"]:checked').id == "2004" ) { cols=20; rows=4; }
+	 if( document.querySelector('input[name = "DT"]:checked').id == "1602" ) { cols=16; rows=2; }
+	 location.replace( "/?config.html&cols="+cols+"&rows="+rows );
+					   }
+					   
+ function submitDForm() {
+	 if( document.querySelector('input[name = "EN"]:checked').id == "TX" ) { EN="TX"; }
+	 if( document.querySelector('input[name = "EN"]:checked').id == "WX" ) { EN="WX" }
+	 location.replace( "/?config.html&EN="+EN );
+					   }
+
+
+	
+
+
+</script>
+<br></body></html>

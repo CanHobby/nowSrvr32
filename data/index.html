@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WiFi Credentials</title>
+    <style>
+      body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Color: #000066; text-align: center; }
+    </style>
+  </head>
+  <body><center><h1><br>You will need to enter your WiFi credentials<br>
+    to access Time, Temp and Financial data<br>from the interNet.</h1>
+ <form action='/IC'>
+  <input type='hidden' name="page" value="/Confirm">
+  <label for='SSID'>Your Router SSID:</label>
+  <input type='text' id='SSID' name='SSID' placeholder='Router name' value='theHAT'>
+  <br><br>
+  <label for='pWord'>WiFi Password:</label>
+  <input type='text' id='pWord' name='pWord' placeholder="my WiFi PassWord" value="arturoelburro"><br><br>
+  <input type='hidden' name="Next" value="storeWiFi">
+  <input type='submit' value='Submit WiFi credentials'>
+ </form><br>
+ <br><br><br> 
+</body>
+</html>
