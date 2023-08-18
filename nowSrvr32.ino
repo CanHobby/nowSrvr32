@@ -15,7 +15,7 @@ void setup() {
   Serial.printf("\n\n %s Reporting...\n", __FILE__ );
 
   FSbegin( );
-//  listDir( "/" );
+  listDir( "/" );
 // updateRead( &config, "config.dat", configLEN );
 // FSRead( "/index.html", true );
 
@@ -51,8 +51,10 @@ delay( 200 );
 
   DualInit();
   NOWsetup();
-      
+
+#ifdef use_MQTT
   MQTTsetup();
+#endif  
 //  lcd.clear();    
 //  LCD("WiFi Connected",2, 0 );  //  config.disp_rows - 1 );
 //  LCD("to configure go to:", 0, 1);
@@ -74,10 +76,15 @@ for( int x=0; x<weather_info.num_cities; x++ ) {
 // Wupdater();  //  do pre-update
 }
 // lcd.clear();
- 
-    xTaskCreate( NTP_Tk,    "NTP",    4096, NULL, 1, &NTP_Tk_h ); 
+#ifdef use_NTP 
+    xTaskCreate( NTP_Tk,    "NTP",    4096, NULL, 1, &NTP_Tk_h );
+#endif
+#ifdef use_WEATH     
     xTaskCreate( WthDsp_Tk, "WthDsp", 4096, NULL, 1, &WthDsp_Tk_h );
+// #ifdef use_
     xTaskCreate( WthUpd_Tk, "WthUpd", 8096, NULL, 1, NULL );
+// #endif
+#endif
 //  xTaskCreate( Radio_Tk,  "Player", 12096, NULL, 1, &Radio_Tk_h );
 
 }
@@ -91,8 +98,9 @@ void loop() {
   delay( 10000 );
 //  NOWsend( 3, tmpp );
 //  delay( 5000 );
-
- MQTTloop();
+#ifdef use_MQTT
+  MQTTloop();
+#endif 
 // NOWloop();
   NowDelay();  //  For Timed "Boxes"
 //time_loop();   

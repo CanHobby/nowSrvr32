@@ -1,6 +1,8 @@
 #ifndef _nowSrvr32_h_
 #define _nowSrvr32_h_
 
+#include "diyHome.h"
+
 #include <Arduino_JSON.h>
 #include <FS.h>
 #include <SPIFFS.h>
@@ -15,7 +17,6 @@
 
 #include "NowMACs.h"
 
-#define  USE_LCD
 // #define USE_ESP01
 // #define NTPdebug
 //#define Wdebug
