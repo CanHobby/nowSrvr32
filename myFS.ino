@@ -39,7 +39,7 @@ if( dump ) {
    f.close(); 
  }
 
-#ifdef ESP32
+//#ifdef ESP32
 
  void listDir(const char * dirname ) {  //  , fs::FS &fs, uint8_t levels){
 
@@ -77,7 +77,7 @@ if( dump ) {
 }
 /****/
 
-#endif
+// #endif
 
 #ifdef ESP8266
 void listDir(const char * dirname) {

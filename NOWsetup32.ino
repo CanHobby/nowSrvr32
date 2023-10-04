@@ -36,12 +36,12 @@ void NowDelay() {
   int x;
 
   for( x=0; x<maxTQ; x++ ) {
-//    Serial.printf("x = %d, TimeQ[x].timeout = %d, ms = %d\n", x, TimeQ[x].timeout, millis()/1000 );
+ //   Serial.printf("x = %d, TimeQ[x].timeout = %d, ms = %d\n", x, TimeQ[x].timeout, millis()/1000 );
 
       if( TimeQ[x].timeout ) {
-//      Serial.printf( "NowDel Dev = %s",TimeQ[x].Device.c_str() );
-//      Serial.printf( " : timeout = %d : ", TimeQ[x].timeout );
-//      Serial.printf( "ms = %lu\n", millis()/1000 );
+      Serial.printf( "NowDel Dev = %s",TimeQ[x].Device.c_str() );
+      Serial.printf( " : timeout = %d : ", TimeQ[x].timeout );
+      Serial.printf( "ms = %lu\n", millis()/1000 );
       }
     if( TimeQ[x].timeout ) {
       if( millis()/1000 >= TimeQ[x].timeout ) {
@@ -57,8 +57,8 @@ void NowDelay() {
   
   }
 
-/****  
-  Serial.printf( "NowDelay TQidx = %d, TO = %d, ms = %d\n", TQidx, TimeQ[TQidx].timeout, millis()/1000  );
+/****/  
+//  Serial.printf( "NowDelay TQidx = %d, TO = %d, ms = %d\n", TQidx, TimeQ[TQidx].timeout, millis()/1000  );
   for( x=0; x<TQidx+1; x++ ) { // Serial.printf("x = %d\n", x );
 //  if( TQidx ) {
     if( TimeQ[x].timeout ) {
@@ -69,14 +69,17 @@ void NowDelay() {
         printf("%s %s @ %d\n",TimeQ[x].Device.c_str(), TimeQ[x].Command.c_str(), millis()/1000 );
         TimeQ[x].timeout=0;
         if( TimeQ[x].Device.toInt() == 0 ) {
+Serial.printf("Alpha Device\n");          
           Pub( TimeQ[x].Device+"/cmnd/POWER", TimeQ[x].Command );
+
+          
                              }
         else { NOWsend( TimeQ[x].Device.toInt(), TimeQ[x].Command ); }
         TQidx--;
     }
   }
  }
- ******/
+ /******/
 }
 
 void NOWsend( int Adr, String MsgS ) {

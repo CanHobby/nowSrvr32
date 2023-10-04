@@ -9,7 +9,11 @@
 // #define use_LCD
 #define use_MQTT   //    include the MQTT Pub / Sub routines.
 // #define use_NTP    //    include the NTP internet time routines
-// #define use_WEATH  //    include the openweathermap internet weather routines.
+#define use_WEATH  //    include the openweathermap internet weather routines.
 // #define use_FCast  //    include the openweathermap internet weather forecast routines.
+#define use_OPEN_Basic //  use Basic OpenWeather API
+// #define use_OPEN_OneCall  //  use OpenWeather OneCall API
 
-#endif
+
+
+#endif  //  #ifndef _diyHome_h_

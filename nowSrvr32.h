@@ -69,7 +69,7 @@ struct configST {
   uint8_t p_on = 0;  // PMAX;
   uint8_t t_on = TMAX;  // TMIN;
   uint8_t w_on = WMIN;
-  uint8_t Wdly = 15*60;
+  uint8_t Wdly = 150*60;
   uint8_t Tdly = 58;
   uint8_t Sell = 2;
   uint8_t Buy  = 1;
@@ -103,8 +103,8 @@ struct  place {
   double  chill[8] = { 39, 49, 59, 69, 79, 89 };
   int     wind[8] = { 11, 22, 333, 40, 50 };
   int     hum[8]  = { 20, 30, 5, 8, 90 };
-  int     lows[8][5] = { { -0,-0,-0,-0,-0 } };
-  int     highs[8][5]= { { 0,0,0,0,0      } };
+  double  lows[8] = { -0,-0,-0,-0,-0 };
+  double  highs[8]= { 0,0,0,0,0      };
   int     wclows[8][5] = { { 0,1,2,3,4 } };
   int     wchighs[8][5] = { { 0,0,0,0,0 } };
   char    sunrise[8][6] = { { 0,0,0,0,0,0 } };

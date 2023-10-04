@@ -95,7 +95,7 @@ void loop() {
   if( tmpp[0] == 'N' ) { tmpp[0] = 'F'; }
   else { tmpp[0] = 'N'; }
 //  NOWsend( 7, tmpp );
-  delay( 10000 );
+
 //  NOWsend( 3, tmpp );
 //  delay( 5000 );
 #ifdef use_MQTT
@@ -107,4 +107,5 @@ void loop() {
 //  vTaskDelay( 5000 );
 // Serial.printf("0x%X, 0x%X, 0x%X, 0x%X\n", InStatus[1], InStatus[3], InStatus[5], InStatus[7] ); 
 OTAloop();
+  delay( 1000 );
 }
