@@ -23,7 +23,7 @@ void OnDataRecv(const uint8_t *mac_addr, const uint8_t *data, int len) {
 //  Serial.printf("%s <-- %d\n", reinterpret_cast<const char*>(data), mac_addr[5] );
 //  Serial.printf("%s << %X..%X\n", (char*)data, mac_addr[0], mac_addr[5] );
 
- vars[ mac_addr[5] ] = String( (char *)data );
+// vars[ mac_addr[5] ] = String( (char *)data );
   }
 
 // Callback when data is sent

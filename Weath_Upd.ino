@@ -236,13 +236,14 @@ city.temp_max[apipass] = dtmp;
 #endif
  
 Serial.println();
-//    stg = JSON.stringify( myObject["wind"]["speed"] );
-    int Wind = stg.toInt();
-    city.wind[ apipass ] = Wind;
+    stg = JSON.stringify( myObject["wind"]["speed"] );
+    dtmp = stg.toDouble();
+//    int Wind = stg.toInt();
+    city.wind[ apipass ] = dtmp;
 
 //    stg = JSON.stringify( myObject["main"]["humidity"] );
-    Wind = stg.toInt();
-    city.hum[ apipass ] = Wind;
+//    Wind = dtmp;
+//    city.hum[ apipass ] = Wind;
 #ifdef Wdebug
   Serial.println("End Weatehr Update");
 #endif

@@ -45,12 +45,12 @@ constexpr int PMAX = 4;
 
   int Qidx = 0, TQidx = 0;
 
-   String Table = "Kalindra", FanST = "Off", TEMP = "69.7", Sofa = "On",
-    BedSide = "Tarawa", PendTopic = "", PendMsg, PendTim, DummyST = "Off",
-    TOven = "Tetisa", Coffee = "Carolin", Temp = "Teena",
-    vars[16] = { "0", "One", "2", "Tarawa","4","Berta","6","7x", "8", "Nina" },
-    QUE[32];
-
+//   String Table = "Kalindra", TEMP = "69.7", 
+//    BedSide = "Tarawa", PendTopic = "",  PendTim, DummyST = "Off",
+//    TOven = "Tetisa", Temp = "Teena",
+String  Sofa = "On", PendMsg, Coffee = "Carolin", QUE[32];
+//, vars[16] = { "0", "One", "2", "Tarawa","4","Berta","6","7x", "8", "Nina" },
+    
 struct time_queue {
   String Device;
   String Command = "OFF";
@@ -101,7 +101,7 @@ struct  place {
   double  temp_min[8] = { -49, 59, 69, 79, 89, 99, 99, 99 };
   double  temp_max[8] = { 69, 59, 69, 79, 89, 99, 99, 99 };
   double  chill[8] = { 39, 49, 59, 69, 79, 89 };
-  int     wind[8] = { 11, 22, 333, 40, 50 };
+  double  wind[8] = { 1.1, 2.2, 3.33, 4.4, 5.5 };
   int     hum[8]  = { 20, 30, 5, 8, 90 };
   double  lows[8] = { -0,-0,-0,-0,-0 };
   double  highs[8]= { 0,0,0,0,0      };

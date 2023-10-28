@@ -15,9 +15,10 @@ void setup() {
   Serial.printf("\n\n %s Reporting...\n", __FILE__ );
 
   FSbegin( );
-  listDir( "/" );
+//  listDir( "/" );
 // updateRead( &config, "config.dat", configLEN );
 // FSRead( "/index.html", true );
+// delay( 100000 );
 
 printf("ESP32 WiFi = %s %s\n", config.ssid, config.pword );
 

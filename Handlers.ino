@@ -144,7 +144,7 @@ void handleAll( AsyncWebServerRequest *request ) {
       if ( TO.toInt() == 0 ) { Serial.println( "No TO" );
         if ( ADR.toInt() ) {
           NOWsend( ADR.toInt(), MSG );
-          vars[ ADR.toInt() ] = MSG;
+//          vars[ ADR.toInt() ] = MSG;
              }
         else {
 #ifdef use_MQTT          
@@ -204,7 +204,7 @@ String processor(const String& var) {
 //    Serial.printf( "Processor engaged: var = %s\n", var.c_str() );
 
   if ( var.toInt() ) {
-    return vars[ var.toInt() ];  //  String(InStatus[ TOven_MAC[5] ]);
+//    return vars[ var.toInt() ];  //  String(InStatus[ TOven_MAC[5] ]);
       }
   if (var == "Sofa") {
     return Sofa;
@@ -232,7 +232,7 @@ String processor(const String& var) {
     return buf;
   }  
   if (var == "Wind") {
-    sprintf( buf, "%d", city.wind[ 0 ] );
+    sprintf( buf, "%.0f", city.wind[ 0 ] );
 //    Serial.printf("H231 wind = %d\n", city.wind[ 0 ] );
   return buf;
   }
@@ -328,7 +328,8 @@ void updateRead( void *strct, char *dat, int len ) {
   f.close();
   memcpy( strct, Buf, len );
 }
-
+/****
 String getStatus() {
-  return FanST;
+//  return FanST;
 }
+*****/
